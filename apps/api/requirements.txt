@@ -1,1 +1,5 @@
--e "fastapi\nuvicorn\nsqlalchemy\nrequests\npython-dotenv" 
+fastapi
+uvicorn
+sqlalchemy
+requests
+python-dotenv
