@@ -22,5 +22,26 @@ class Click(Base):
     timestamp = Column(DateTime, default=datetime.utcnow)
     ip = Column(String)
     user_agent = Column(String)
+    fbp = Column(String)
+    fbc = Column(String)
+    referer = Column(String)
+    utm_source = Column(String)
+    utm_medium = Column(String)
+    utm_campaign = Column(String)
+    utm_content = Column(String)
+    utm_term = Column(String)
+
+class Conversion(Base):
+    __tablename__ = "conversions"
+    id = Column(Integer, primary_key=True)
+    click_id = Column(Integer, ForeignKey("clicks.id"))
+    value = Column(Integer, default=0)
+    timestamp = Column(DateTime, default=datetime.utcnow)
+    email = Column(String)
+    telefone = Column(String)
+    produto = Column(String)
+    utm_campaign = Column(String)
+    utm_content = Column(String)
+    meta = Column(String)
 
 Base.metadata.create_all(bind=engine)
