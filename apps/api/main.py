@@ -32,4 +32,6 @@ app.include_router(stats_router)
 from routes.conversions_api import router as conversions_router
 app.include_router(conversions_router)
 
+from routes.webhook_clickbank import router as clickbank_router
+app.include_router(clickbank_router)
 
