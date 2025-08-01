@@ -29,4 +29,7 @@ app.include_router(aggregate_router)
 from routes.stats_api import router as stats_router
 app.include_router(stats_router)
 
+from routes.conversions_api import router as conversions_router
+app.include_router(conversions_router)
+
 
