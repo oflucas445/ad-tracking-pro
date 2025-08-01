@@ -12,6 +12,11 @@ export default function Painel() {
     }
   }, []);
 
+  const handleLogout = () => {
+    localStorage.removeItem("logged");
+    router.push("/login");
+  };
+
   const links = [
     { href: "/links/create", label: "➕ Criar Link", bg: "bg-blue-100" },
     { href: "/dashboard", label: "📊 Estatísticas por Link", bg: "bg-green-100" },
@@ -22,8 +27,17 @@ export default function Painel() {
 
   return (
     <>
+      <header className="flex justify-between items-center px-6 py-4 bg-white border-b shadow-sm">
+        <h1 className="text-xl font-bold">🎯 Painel do Usuário</h1>
+        <button
+          onClick={handleLogout}
+          className="text-red-600 font-semibold hover:underline"
+        >
+          Sair
+        </button>
+      </header>
+
       <main className="p-6 max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold mb-4">🎯 Painel do Usuário</h1>
         <p className="text-gray-600 mb-6">Bem-vindo! Acesse rapidamente os módulos da sua plataforma de tracking.</p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
