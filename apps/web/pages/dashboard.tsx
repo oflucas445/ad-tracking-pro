@@ -15,11 +15,12 @@ export default function Dashboard() {
     }
     setError(null);
     setLoading(true);
+
     let url = `${process.env.NEXT_PUBLIC_API_URL}/stats/link/${linkId}`;
-    const params = [];
-    if (startDate) params.push(`start_date=${startDate}`);
-    if (endDate) params.push(`end_date=${endDate}`);
-    if (params.length) url += "?" + params.join("&");
+    const params = new URLSearchParams();
+    if (startDate) params.append("start_date", startDate);
+    if (endDate) params.append("end_date", endDate);
+    if (params.toString()) url += `?${params.toString()}`;
 
     try {
       const res = await fetch(url);
@@ -35,7 +36,7 @@ export default function Dashboard() {
 
   return (
     <main className="p-6">
-      <h1 className="text-xl font-bold mb-4">Painel de Estatísticas por Link</h1>
+      <h1 className="text-xl font-bold mb-4">Estatísticas por Link</h1>
 
       <div className="mb-4 flex flex-col gap-2 max-w-md">
         <input
@@ -68,12 +69,15 @@ export default function Dashboard() {
       {loading && <p className="text-gray-500">Carregando...</p>}
       {error && <p className="text-red-600">{error}</p>}
 
-    {stats && (
-  <div className="border p-4 rounded bg-gray-50 max-w-md">
-    <p><strong>Link ID:</strong> {stats.link_id}</p>
-    <p><strong>Total de Cliques:</strong> {stats.clicks}</p>
-    <p><strong>Total de Conversões:</strong> {stats.conversions}</p>
-    <p><strong>Valor Total:</strong> R$ {stats.total_value}</p>
-    <p><strong>Taxa de Conversão:</strong> {stats.conversion_rate}%</p>
-  </div>
-)}
+      {stats && (
+        <div className="border p-4 rounded bg-gray-50 max-w-md">
+          <p><strong>Link ID:</strong> {stats.link_id}</p>
+          <p><strong>Total de Cliques:</strong> {stats.clicks}</p>
+          <p><strong>Total de Conversões:</strong> {stats.conversions}</p>
+          <p><strong>Valor Total:</strong> R$ {stats.total_value}</p>
+          <p><strong>Taxa de Conversão:</strong> {stats.conversion_rate}%</p>
+        </div>
+      )}
+    </main>
+  );
+}
