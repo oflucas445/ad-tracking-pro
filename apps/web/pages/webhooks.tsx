@@ -6,7 +6,7 @@ export default function WebhooksPage() {
 
   const handleToggle = () => {
     setEnabled((prev) => !prev);
-    // Aqui poderia ir uma chamada real para a API
+    // futura chamada para backend
   };
 
   return (
@@ -15,11 +15,13 @@ export default function WebhooksPage() {
 
       <div className="bg-white rounded shadow p-4 space-y-4 border">
         <p className="text-gray-700">
-          Gerencie a integração com plataformas externas para envio de conversões em tempo real.
+          Gerencie a integração com plataformas externas para envio de conversões.
         </p>
 
-        <div className="space-y-2">
-          <label className="block font-medium">Plataforma de Integração:</label>
+        <div>
+          <label className="block font-medium mb-1">
+            Plataforma de Integração:
+          </label>
           <select
             className="border p-2 rounded w-full"
             value={platform}
@@ -31,8 +33,8 @@ export default function WebhooksPage() {
           </select>
         </div>
 
-        <div className="space-y-1">
-          <p className="font-medium">Status do Webhook:</p>
+        <div>
+          <p className="font-medium">Status:</p>
           <p className={enabled ? "text-green-600" : "text-red-600"}>
             {enabled ? "Ativado" : "Desativado"}
           </p>
