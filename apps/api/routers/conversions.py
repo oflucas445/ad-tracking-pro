@@ -1,38 +1,33 @@
-from fastapi import APIRouter, Request, Header
+from fastapi import APIRouter, Response
 from models import SessionLocal, Conversion
-import requests
-import os
+import csv
+import io
 
 router = APIRouter()
 
 @router.get("/by-link/{link_id}")
 def get_conversions_by_link(link_id: str):
     db = SessionLocal()
-    convs = db.query(Conversion).join("clicks").filter_by(link_id=link_id).all()
-    return convs
+    return db.query(Conversion).filter(Conversion.click_id == link_id).all()
 
-@router.post("/send-facebook")
-async def send_to_facebook(request: Request, x_token: str = Header(None)):
-    if x_token != os.getenv("WEBHOOK_TOKEN"):
-        return {"error": "unauthorized"}
+@router.get("/export")
+def export_conversions():
+    db = SessionLocal()
+    convs = db.query(Conversion).all()
 
-    data = await request.json()
-    # Enviar evento para Facebook CAPI
-    response = requests.post(
-        "https://graph.facebook.com/v18.0/YOUR_PIXEL_ID/events?access_token=YOUR_ACCESS_TOKEN",
-        json={
-            "data": [{
-                "event_name": "Purchase",
-                "event_time": data.get("timestamp"),
-                "action_source": "website",
-                "event_source_url": data.get("source_url"),
-                "user_data": {
-                    "client_ip_address": data.get("ip"),
-                    "client_user_agent": data.get("user_agent"),
-                    "fbp": data.get("fbp"),
-                    "fbc": data.get("fbc")
-                }
-            }]
-        }
-    )
-    return {"fb_status": response.status_code}
+    output = io.StringIO()
+    writer = csv.writer(output)
+    writer.writerow([
+        "id", "click_id", "timestamp", "value", "email", "telefone",
+        "produto", "utm_campaign", "utm_content", "meta"
+    ])
+
+    for c in convs:
+        writer.writerow([
+            c.id, c.click_id, c.timestamp, c.value, c.email, c.telefone,
+            c.produto, c.utm_campaign, c.utm_content, c.meta
+        ])
+
+    response = Response(content=output.getvalue(), media_type="text/csv")
+    response.headers["Content-Disposition"] = "attachment; filename=conversions.csv"
+    return response
