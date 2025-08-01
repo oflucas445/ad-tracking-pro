@@ -29,7 +29,7 @@ export default function Painel() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {links.map(({ href, label, bg }) => (
             <Link key={href} href={href}>
-              <div className={\`\${bg} p-6 rounded-xl shadow hover:scale-105 transition cursor-pointer\`}>
+              <div className={`${bg} p-6 rounded-xl shadow hover:scale-105 transition cursor-pointer`}>
                 <p className="text-lg font-semibold text-gray-800">{label}</p>
               </div>
             </Link>
