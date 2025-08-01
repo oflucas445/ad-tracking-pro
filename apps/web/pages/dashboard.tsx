@@ -1,83 +1,44 @@
-import { useState } from "react";
+import {
+  LineChart,
+  Line,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+
+const mockData = [
+  { date: "01/08", clicks: 24, conversions: 4 },
+  { date: "02/08", clicks: 35, conversions: 8 },
+  { date: "03/08", clicks: 42, conversions: 7 },
+  { date: "04/08", clicks: 31, conversions: 3 },
+  { date: "05/08", clicks: 50, conversions: 10 },
+  { date: "06/08", clicks: 48, conversions: 11 },
+  { date: "07/08", clicks: 60, conversions: 15 },
+];
 
 export default function Dashboard() {
-  const [linkId, setLinkId] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [stats, setStats] = useState<any>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const fetchStats = async () => {
-    if (!linkId) {
-      setError("Insira o ID do link.");
-      return;
-    }
-    setError(null);
-    setLoading(true);
-
-    let url = `${process.env.NEXT_PUBLIC_API_URL}/stats/link/${linkId}`;
-    const params = new URLSearchParams();
-    if (startDate) params.append("start_date", startDate);
-    if (endDate) params.append("end_date", endDate);
-    if (params.toString()) url += `?${params.toString()}`;
-
-    try {
-      const res = await fetch(url);
-      if (!res.ok) throw new Error("Erro ao buscar estatísticas.");
-      const data = await res.json();
-      setStats(data);
-    } catch (err: any) {
-      setError(err.message || "Erro desconhecido");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
-    <main className="p-6">
-      <h1 className="text-xl font-bold mb-4">Estatísticas por Link</h1>
+    <main className="p-6 max-w-5xl mx-auto">
+      <h1 className="text-2xl font-bold mb-4">📈 Dashboard Global</h1>
+      <p className="text-gray-600 mb-8">
+        Acompanhe o desempenho diário dos seus links com gráficos de cliques e conversões.
+      </p>
 
-      <div className="mb-4 flex flex-col gap-2 max-w-md">
-        <input
-          className="border p-2"
-          type="text"
-          placeholder="ID do Link"
-          value={linkId}
-          onChange={(e) => setLinkId(e.target.value)}
-        />
-        <input
-          className="border p-2"
-          type="date"
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
-        />
-        <input
-          className="border p-2"
-          type="date"
-          value={endDate}
-          onChange={(e) => setEndDate(e.target.value)}
-        />
-        <button
-          onClick={fetchStats}
-          className="bg-blue-600 text-white px-4 py-2 rounded"
-        >
-          Buscar Estatísticas
-        </button>
+      <div className="bg-white p-4 rounded shadow border">
+        <h2 className="text-lg font-semibold mb-4">🔎 Cliques vs Conversões</h2>
+        <ResponsiveContainer width="100%" height={300}>
+          <LineChart data={mockData}>
+            <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
+            <XAxis dataKey="date" />
+            <YAxis />
+            <Tooltip />
+            <Line type="monotone" dataKey="clicks" stroke="#3182ce" name="Cliques" />
+            <Line type="monotone" dataKey="conversions" stroke="#38a169" name="Conversões" />
+          </LineChart>
+        </ResponsiveContainer>
       </div>
-
-      {loading && <p className="text-gray-500">Carregando...</p>}
-      {error && <p className="text-red-600">{error}</p>}
-
-      {stats && (
-        <div className="border p-4 rounded bg-gray-50 max-w-md">
-          <p><strong>Link ID:</strong> {stats.link_id}</p>
-          <p><strong>Total de Cliques:</strong> {stats.clicks}</p>
-          <p><strong>Total de Conversões:</strong> {stats.conversions}</p>
-          <p><strong>Valor Total:</strong> R$ {stats.total_value}</p>
-          <p><strong>Taxa de Conversão:</strong> {stats.conversion_rate}%</p>
-        </div>
-      )}
     </main>
   );
 }
