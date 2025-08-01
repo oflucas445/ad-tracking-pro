@@ -22,3 +22,7 @@ app.include_router(stats.router, prefix="/stats")
 @app.get("/")
 def root():
     return {"msg": "API do Ad Tracking Pro online"}
+
+from routes.aggregate_api import router as aggregate_router
+app.include_router(aggregate_router)
+
