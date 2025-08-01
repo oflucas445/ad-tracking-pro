@@ -68,15 +68,14 @@ export default function Dashboard() {
       {loading && <p className="text-gray-500">Carregando...</p>}
       {error && <p className="text-red-600">{error}</p>}
 
-      {stats && (
-        <div className="border p-4 rounded bg-gray-50 max-w-md">
-          <p><strong>Link ID:</strong> {stats.link_id}</p>
-          <p><strong>Total de Cliques:</strong> {stats.clicks}</p>
-          <p><strong>Total de Conversões:</strong> {stats.conversions}</p>
-          <p><strongValor Total:</strong> R$ {stats.total_value}</p>
-          <p><strong>Taxa de Conversão:</strong> {stats.conversion_rate}</p>
-        </div>
-      )}
-    </main>
-  );
-}
+     {stats && (
+  <div>
+    <div className="border p-4 rounded bg-gray-50 max-w-md">
+      <p><strong>Link ID:</strong> {stats.link_id}</p>
+      <p><strong>Total de Cliques:</strong> {stats.clicks}</p>
+      <p><strong>Total de Conversões:</strong> {stats.conversions}</p>
+      <p><strong>Valor Total:</strong> R$ {stats.total_value}</p>
+      <p><strong>Taxa de Conversão:</strong> {stats.conversion_rate}%</p>
+    </div>
+  </div>
+)}
