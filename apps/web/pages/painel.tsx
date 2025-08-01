@@ -21,27 +21,29 @@ export default function Painel() {
   ];
 
   return (
-    <main className="p-6 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold mb-4">🎯 Painel do Usuário</h1>
-      <p className="text-gray-600 mb-6">Bem-vindo! Acesse rapidamente os módulos da sua plataforma de tracking.</p>
+    <>
+      <main className="p-6 max-w-4xl mx-auto">
+        <h1 className="text-3xl font-bold mb-4">🎯 Painel do Usuário</h1>
+        <p className="text-gray-600 mb-6">Bem-vindo! Acesse rapidamente os módulos da sua plataforma de tracking.</p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {links.map(({ href, label, bg }) => (
-          <Link key={href} href={href}>
-            <div className={\`\${bg} p-6 rounded-xl shadow hover:scale-105 transition cursor-pointer\`}>
-              <p className="text-lg font-semibold text-gray-800">{label}</p>
-            </div>
-          </Link>
-        ))}
-      </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          {links.map(({ href, label, bg }) => (
+            <Link key={href} href={href}>
+              <div className={\`\${bg} p-6 rounded-xl shadow hover:scale-105 transition cursor-pointer\`}>
+                <p className="text-lg font-semibold text-gray-800">{label}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </main>
 
-      <div className="mt-10 p-4 border rounded shadow bg-white">
+      <div className="mt-10 p-4 border rounded shadow bg-white max-w-4xl mx-auto">
         <h2 className="text-xl font-bold mb-2">🔔 Webhooks de Conversão</h2>
         <p className="text-gray-700 mb-2">
           Configure o envio automático de eventos para o Facebook, Zapier ou outras plataformas.
         </p>
         <p className="text-sm text-gray-500">Status: <span className="text-green-600 font-semibold">Ativo</span> (mockado)</p>
       </div>
-    </main>
+    </>
   );
 }
