@@ -1,3 +1,45 @@
-# Node modules
-apps/web/node_modules
-node_modules
+# Node
+node_modules/
+apps/web/node_modules/
+apps/api/node_modules/
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg
+*.egg-info/
+.env
+.venv/
+env/
+venv/
+*.sqlite3
+
+# System
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# IDEs
+.vscode/
+.idea/
+
+# OS junk
+*.swp
+*.bak
+*.tmp
+
+# GitHub LFS (just in case)
+*.zip
+*.tar
+*.gz
+
+# Ignore sensitive tokens (por segurança)
+.env*
