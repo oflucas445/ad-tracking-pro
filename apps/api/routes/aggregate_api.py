@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from database import get_db
-from models import Click, Conversion
+from apps.api.database import get_db
+from apps.api.models import Click, Conversion
 from collections import defaultdict
 from datetime import datetime
 from fastapi.responses import JSONResponse
