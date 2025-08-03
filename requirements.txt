@@ -1,5 +1,13 @@
-fastapi
-uvicorn
-sqlalchemy
-requests
-python-dotenv
+fastapi==0.116.1
+uvicorn==0.35.0
+sqlalchemy==2.0.42
+requests==2.32.4
+python-dotenv==1.1.1
+
+# Dependências do FastAPI modernas
+pydantic==2.11.7
+pydantic-core==2.33.2
+starlette==0.47.2
+typing-extensions>=4.8.0
+anyio==4.9.0
+sniffio==1.3.1
