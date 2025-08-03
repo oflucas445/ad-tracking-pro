@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .routes import clicks, conversions, links, stats
+from apps.api.routes import clicks, conversions, links, stats
 from .routes.aggregate_api import router as aggregate_router
 from .routes.stats_api import router as stats_router
 from .routes.conversions_api import router as conversions_router
