@@ -6,9 +6,10 @@ services:
       - "8000:8000"
     environment:
       - DATABASE_URL=sqlite:///./test.db
+      - PYTHONPATH=.
+    command: uvicorn apps.api.main:app --host 0.0.0.0 --port 8000
 
   web:
     build: ./apps/web
     ports:
       - "3000:3000"
-      PYTHONPATH=.
